@@ -1,39 +1,24 @@
 import Phaser from 'phaser';
 import logoImg from './assets/logo.png';
+import FirstScene from './scenes/FirstScene'
+import PreloadScene from './PreloadScene';
+import SecondScene from './scenes/SecondScene';
 
-class MyGame extends Phaser.Scene
-{
-    constructor ()
-    {
-        super();
-    }
-
-    preload ()
-    {
-        this.load.image('logo', logoImg);
-    }
-      
-    create ()
-    {
-        const logo = this.add.image(400, 150, 'logo');
-      
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: "Power2",
-            yoyo: true,
-            loop: -1
-        });
-    }
-}
 
 const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: MyGame
+    inputMouse: true
 };
 
 const game = new Phaser.Game(config);
+
+
+game.scene.add('PreloadScene', new PreloadScene);
+game.scene.add('FirstScene', new FirstScene());
+game.scene.add('SecondScene', new SecondScene());
+
+
+game.scene.start('PreloadScene');
